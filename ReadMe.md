@@ -821,6 +821,7 @@ if(maybeDog)
 {
     maybeDog->Wangwang();
 }
+
 ICat* maybeCat = dynamic_cast<ICat*>(animal);
 if(maybeCat)
 {
@@ -852,21 +853,21 @@ int main()
 }
 ```
 
-这点限制也粉碎了妄图用模板来包办工厂（Factory）甚至是反射的梦想。尽管在《Modern C++ Design》中（别问我为什么老举这本书，因为《C++ Templates》和《Generic Programming》我只是囫囵吞枣读过，基本不记得了)大量运用模板来简化工厂方法；同时C++11/14中的一些机制如Variadic Template更是让这一问题的解决更加彻底。但无论如何，直到C++11/14，光靠模板你就是写不出依靠类名或者ID变量产生类型实例的代码。
+这点限制也粉碎了妄图用模板来包办工厂（Factory）甚至是反射的梦想。尽管在《Modern C++ Design》中（别问我为什么老举这本书，因为《C++ Templates》和《Generic Programming》我只是囫囵吞枣读过，基本不记得了）大量运用模板来简化工厂方法；同时C++11/14中的一些机制如Variadic Template更是让这一问题的解决更加彻底。但无论如何，直到C++11/14，光靠模板你就是写不出依靠类名或者ID变量产生类型实例的代码。
 
 所以说，从能力上来看，模板能做的事情都是编译期完成的。编译期完成的意思就是，当你编译一个程序的时候，所有的量就都已经确定了。比如下面的这个例子：
 
 ``` C++
 int a = 3, b = 5;
 Variant aVar, bVar;
-aVar.setInt(a);			// 我们新加上的方法，怎么实现的无所谓，大家明白意思就行了。
+aVar.setInt(a);	    // 我们新加上的方法，怎么实现的无所谓，大家明白意思就行了。
 bVar.setInt(b);
 Variant result = addFloatOrMulInt(aVar, bVar);
 ```
 
 除非世界末日，否则这个例子里不管你怎么蹦跶，单看代码我们就能知道， `aVar` 和 `bVar` 都一定会是整数。所以如果有合适的机制，编译器就能知道此处的 `addFloatOrMulInt` 中只需要执行 `Int` 路径上的代码，而且编译器在此处也能单独为 `Int` 路径生成代码，从而去掉那个不必要的 `if`。
 
-在模板代码中，这个“合适的机制”就是指“特化”和“部分特化（Partial Specialization）”，后者也叫“偏特化”。
+在模板代码中，这个“合适的机制”就是指“特化”和“部分特化”（Partial Specialization），后者也叫“偏特化”。
 
 #### 2.2.2 特化
 
