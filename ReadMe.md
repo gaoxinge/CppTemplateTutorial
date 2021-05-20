@@ -524,7 +524,7 @@ template <typename DstT, typename SrcT> DstT c_style_cast(SrcT v)  // 模板参�
 }
 
 int v = 0;
-float i = c_style_cast<float>(v);  // 形象地说，DstT会先把你指定的参数吃掉，剩下的就交给编译器从函数参数列表中推导啦。
+float i = c_style_cast<float>(v);  // 形象地说，DstT 会先把你指定的参数吃掉，剩下的就交给编译器从函数参数列表中推导啦。
 ```
 
 ### 1.3 整型也可是Template参数
