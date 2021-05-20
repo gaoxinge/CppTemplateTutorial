@@ -1013,7 +1013,7 @@ template <typename T> class AddFloatOrMulInt
 template <> class AddFloatOrMulInt<int>
 {
 public:
-    static int Do(int a, int b) // 
+    static int Do(int a, int b)
     {
         return a * b;
     }
