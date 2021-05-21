@@ -1365,9 +1365,9 @@ template <typename T> struct X {};
 	
 template <typename T> struct Y
 {
-    typedef X<T> ReboundType;				        // 类型定义1
-    typedef typename X<T>::MemberType MemberType;	// 类型定义2
-    typedef UnknownType MemberType3;			    // 类型定义3
+    typedef X<T> ReboundType;                           // 类型定义1
+    typedef typename X<T>::MemberType MemberType;       // 类型定义2
+    typedef UnknownType MemberType3;                    // 类型定义3
 
     void foo()
     {
@@ -1546,7 +1546,7 @@ template <typename T> struct Y
     void foo()
     {
         X<T> instance0;
-        X<T>::MemberType instance1;
+        typename X<T>::MemberType instance1;
         WTF instance2
     }
 };
@@ -1660,9 +1660,9 @@ template <typename T> struct X {};
 	
 template <typename T> struct Y
 {
-    typedef X<T> ReboundType;						// 这里为什么是正确的？
-    typedef typename X<T>::MemberType MemberType2;	// 这里的typename是做什么的？
-    typedef UnknownType MemberType3;				// 这里为什么会出错？
+    typedef X<T> ReboundType;                           // 这里为什么是正确的？
+    typedef typename X<T>::MemberType MemberType2;      // 这里的typename是做什么的？
+    typedef UnknownType MemberType3;                    // 这里为什么会出错？
 };
 ```
 
@@ -1709,7 +1709,7 @@ template <typename T> void meow()
 }
 ```
 
-编译器对模板进行语法检查的时候，必须要知道上面那一行到底是个什么——这当然可以推迟到实例化的时候进行（比如VC，这也是上面说过VC可以不加`typename`的原因），不过那是另一个故事了——显然在模板定义的时候，编译器并不能妄断。因此，C++标准规定，在没有`typename`约束的情况下认为这里`T::a`不是类型，因此`T::a * b;` 会被当作表达式语句（例如乘法）；而为了告诉编译器这是一个指针的定义，我们必须在`T::a`之前加上`typename`关键字，告诉编译器`T::a`是一个类型，这样整个语句才能符合指针定义的语法。
+编译器对模板进行语法检查的时候，必须要知道上面那一行到底是个什么——这当然可以推迟到实例化的时候进行（比如MSVC，这也是上面说过MSVC可以不加`typename`的原因），不过那是另一个故事了——显然在模板定义的时候，编译器并不能妄断。因此，C++标准规定，在没有`typename`约束的情况下认为这里`T::a`不是类型，因此`T::a * b;` 会被当作表达式语句（例如乘法）；而为了告诉编译器这是一个指针的定义，我们必须在`T::a`之前加上`typename`关键字，告诉编译器`T::a`是一个类型，这样整个语句才能符合指针定义的语法。
 
 在这里，我举几个例子帮助大家理解`typename`的用法，这几个例子已经足以涵盖日常使用[（预览）][3]：
 
