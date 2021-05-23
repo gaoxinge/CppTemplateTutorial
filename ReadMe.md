@@ -2364,7 +2364,7 @@ foo(
     int // 这里都不需要 substitution
 )
 {
-  // 整个实现部分，都没有 substitution。这个很关键。
+    // 整个实现部分，都没有 substitution。这个很关键。
 }
 ```
 
