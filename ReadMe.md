@@ -2219,7 +2219,7 @@ struct Y {
 
 template <typename T, typename U>
 void foo(T t, typename U::type u) {
-  // ...
+    // ...
 }
 
 void callFoo() {
@@ -2258,11 +2258,12 @@ void foo(T t, typename U::type u) {
 
 template <typename T, typename U>
 void foo(T t, typename U::type2 u) {
-  // ...
+    // ...
 } 
+	
 void callFoo() {
     foo<int, X>(5, 5.0); // T == int, typename U::type == X::type == float
-    foo<int, Y>( 1, 1.0 ); // ???
+    foo<int, Y>(1, 1.0); // ???
 }
 ```
 
